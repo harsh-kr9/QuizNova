@@ -1,46 +1,94 @@
 const User = require('../model/User');
-const { StatusCodes } = require('http-status-codes');
+const {StatusCodes}= require('http-status-codes');
 const customError = require('../errors');
-const { attachCookiesToResponse } = require('../utils');
+const {attachCookiesToResponse} = require('../utils');
+const { token } = require('morgan');
 
-const register = async (req, res) => {
-    const { name, email, password } = req.body;
-    const emailAlreadyExists = await User.findOne({ email });
-    if (emailAlreadyExists) {
-        throw new customError.BadRequestError('Email already exists');
+const register = async (req,res) => {
+    const {email,name,password} = req.body;
+    // Checking if the email is already used or not
+    const emailAlreadyExists =await User.findOne({email});
+    if(emailAlreadyExists){
+        throw new customError.BadRequestError('Email is already in use')
     }
-    const isFirstAccount = (await User.countDocuments({})) === 0;
-    const role = isFirstAccount ? 'admin' : 'user';
-    const user = await User.create({ name, email, password, role });
-    const tokenUser = { name: user.name, userId: user._id, role: user.role };
-    attachCookiesToResponse({ res, user: tokenUser });
-    res.status(StatusCodes.CREATED).json({ user: tokenUser });
+
+    //Creating user by providing name,email and password so that if any user provides the role as admin...it will be denied
+    const user = await User.create({name,email,password});
+    const tokenUser = {name: user.name, userId: user._id, role: user.role};
+    attachCookiesToResponse({res,user: tokenUser})
+    res.status(StatusCodes.CREATED).json({user: tokenUser});
 };
 
-const login = async (req, res) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
+const login = async (req,res) => {
+    const {email , password} = req.body;
+
+    if(!email || !password){
         throw new customError.BadRequestError('Please provide email and password');
     }
-    const user = await User.findOne({ email });
-    if (!user) {
+
+    const user = await User.findOne({email});
+    if(!user) {
         throw new customError.UnauthenticatedError('Invalid credentials');
     }
+
     const isPasswordCorrect = await user.comparePassword(password);
-    if (!isPasswordCorrect) {
-        throw new customError.UnauthenticatedError('Invalid credentials');
+
+    if(!isPasswordCorrect){
+        throw new customError.UnauthenticatedError('Invalid credentials'); 
     }
+
+    const tokenUser = {name: user.name, userId: user._id, role: user.role};
+    attachCookiesToResponse({res,user: tokenUser})
+    res.status(StatusCodes.CREATED).json({user: tokenUser});
+}
+
+const socialLogin = async (req, res) => {
+    const { email, name } = req.body;
+    let user = await User.findOne({ email });
+
+    if (!user) {
+        // Create a new user if they don't exist
+        user = await User.create({
+            name,
+            email,
+            password: Math.random().toString(36).slice(-8), // Random password
+        });
+    }
+
     const tokenUser = { name: user.name, userId: user._id, role: user.role };
     attachCookiesToResponse({ res, user: tokenUser });
     res.status(StatusCodes.OK).json({ user: tokenUser });
 };
+// const logout = async (req,res) => {
+//     res.cookie('token','logout',{
+//         httpOnly: true,
+//         expires: new Date(Date.now()),
+//     });
+//     res.send('user logged out');
+// }
 
 const logout = async (req, res) => {
+    // Clear the logout cookie
+    res.clearCookie('token');
+
     res.cookie('token', 'logout', {
         httpOnly: true,
         expires: new Date(Date.now()),
     });
-    res.status(StatusCodes.OK).json({ msg: 'user logged out' });
+
+    
+    // Send a response indicating successful logout
+    res.send('User logged out');
+}
+
+module.exports = {
+    logout,
 };
 
-module.exports = { register, login, logout };
+
+module.exports = {
+    register,
+    login,
+    socialLogin,
+    logout,
+}
