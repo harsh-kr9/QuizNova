@@ -1,6 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 require('express-async-errors');
+// const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
@@ -21,16 +22,32 @@ const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler')
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    // origin: 'http://localhost:5173',
+    origin: 'https://quiz-nova-nu.vercel.app',
     credentials: true
 }));
+// Handle preflight requests for all routes
+app.options('*', cors());
 
-app.use(express.json());
-app.use(cookieParser(process.env.JWT_SECRET));
+// Custom middleware to ensure 'Access-Control-Allow-Credentials' header is set
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+});
+
+// Add your routes and other middleware here...
 
 app.get('/', (req, res) => {
   res.send('Server is running');
 });
+
+// app.use(cors());
+app.use(express.json());
+app.use(cookieParser(process.env.JWT_SECRET));
+
+app.get('/', (req,res,next)=>{
+    res.send("educational content generator api")
+})
 
 app.get('/api/v1', (req,res,next)=>{
     res.send('testing')
@@ -45,6 +62,7 @@ app.use('/api/v1/quiz',aiRouter);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
+
 const start = async function() {
     await connectDB(process.env.MONGO_URL);
     try {
@@ -53,5 +71,6 @@ const start = async function() {
         console.log(error);
     }
 }
+
 
 start();
