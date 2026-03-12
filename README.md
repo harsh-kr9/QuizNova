@@ -2,6 +2,9 @@
 
 QuizNova is an AI-powered educational platform designed to make learning engaging and interactive. It provides dynamically generated technical blogs, customized quizzes, and direct learning resources for students and developers.
 
+### Live Demo
+Visit the live site: [QuizNova](https://quiz-nova-nu.vercel.app/)
+
 ## Features
 
 - **AI-Generated Learning:** Get instant, high-quality educational content on any computer science or programming topic.
@@ -26,3 +29,4 @@ QuizNova is an AI-powered educational platform designed to make learning engagin
 ## Author
 
 - [Harsh Kumar](https://github.com/harsh-kr9)
+
