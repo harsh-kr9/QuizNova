@@ -13,6 +13,7 @@ const getQuiz = async (req, res) => {
             const text = await setQuiz(history.title);
 
         // Parse string to JavaScript object array
+        // parse the quiz response
         const questions = eval('(' + text + ')');
 
         res.status(StatusCodes.OK).json({ mcqQuestions: questions });
