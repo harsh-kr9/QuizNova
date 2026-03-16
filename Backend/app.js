@@ -37,6 +37,7 @@ app.use((req, res, next) => {
 
 // Add your routes and other middleware here...
 
+// TODO: add health check endpoint
 app.get('/', (req, res) => {
   res.send('Server is running');
 });
