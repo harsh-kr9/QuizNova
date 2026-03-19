@@ -142,4 +142,5 @@ const Product = () => {
   );
 }
 
+// Main product page with search and content display
 export default Product;
