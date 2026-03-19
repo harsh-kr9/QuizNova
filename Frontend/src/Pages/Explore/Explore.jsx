@@ -9,4 +9,5 @@ const Explore = () => {
   );
 }
 
+// Explore page for browsing available topics
 export default Explore;
