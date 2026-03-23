@@ -74,4 +74,5 @@ const SearchBox = ({ histories }) => {
     );
 }
 
+// SearchBox component for topic search input
 export default SearchBox;
