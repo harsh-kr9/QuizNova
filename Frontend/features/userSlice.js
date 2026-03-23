@@ -9,6 +9,7 @@ const initialState = {
   activeHistory: null,
 };
 
+// Redux slice for user authentication state
 const userSlice = createSlice({
   name: 'user',
   initialState,
