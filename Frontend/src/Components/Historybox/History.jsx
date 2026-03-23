@@ -68,5 +68,6 @@ const History = (props) => {
     );
 }
 
+// History display component
 export default History;
 
