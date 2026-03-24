@@ -33,5 +33,4 @@ const ContactUs = () => {
   );
 }
 
-// Contact us section component
 export default ContactUs;
