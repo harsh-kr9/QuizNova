@@ -46,5 +46,4 @@ const Feauters = () => {
   );
 }
 
-// Features showcase section
 export default Feauters;
