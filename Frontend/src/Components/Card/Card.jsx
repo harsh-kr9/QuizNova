@@ -44,5 +44,4 @@ const Card = () => {
   );
 }
 
-// Reusable card component for feature display
 export default Card;
