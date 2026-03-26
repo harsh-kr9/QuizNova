@@ -77,4 +77,5 @@ const Home = () => {
   );
 }
 
+// Landing page with hero section and features
 export default Home;
