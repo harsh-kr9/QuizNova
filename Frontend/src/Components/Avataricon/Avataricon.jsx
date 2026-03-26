@@ -58,5 +58,4 @@ const Avataricon = () => {
     );
 }
 
-// User avatar dropdown component
 export default Avataricon;
