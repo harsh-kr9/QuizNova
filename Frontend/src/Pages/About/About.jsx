@@ -100,4 +100,5 @@ const About = () => {
   );
 }
 
+// About page with team and project info
 export default About;
