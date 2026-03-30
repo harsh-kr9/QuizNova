@@ -19,5 +19,4 @@ const Error = () => {
   );
 }
 
-// 404 error page with illustration
 export default Error;
