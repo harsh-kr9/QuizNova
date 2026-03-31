@@ -5,6 +5,7 @@ const customError = require('../errors');
 const {isTokenValid} = require('../utils');
 
 
+// Authentication middleware for protected routes
 const authenticateUser = async (req,res,next)=> {
     const token = req.signedCookies.token;
 
