@@ -25,5 +25,4 @@ const styles = {
     sectionInfo: `flex-1 ${styles.flexStart} flex-col`,
   };
   
-  // Shared utility style constants
-export default styles;
+  export default styles;
