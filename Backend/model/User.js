@@ -3,6 +3,7 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const HistoryModel = require('./History'); // Import the History model
 
+// User schema with password hashing and comparison
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
