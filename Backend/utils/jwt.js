@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+// JWT token creation and validation utilities
 const createJWT = ({payload}) => {
     const token = jwt.sign(payload,process.env.JWT_SECRET,{expiresIn: process.env.JWT_LIFETIME });
     return token;
