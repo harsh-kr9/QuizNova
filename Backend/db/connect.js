@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// MongoDB connection handler with error logging
 const connectDB = async (mongoURI) => {
     try {
         await mongoose.connect(mongoURI);
