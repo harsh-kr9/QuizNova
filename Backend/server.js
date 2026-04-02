@@ -8,7 +8,6 @@ app.use(express.json());
 const MODEL_NAME = "gemini-pro";
 const API_KEY = process.env.API_KEY;
 
-// Standalone chat server using Gemini for testing
 async function runChat(userInput, regenerate) {
   const genAI = new GoogleGenerativeAI(API_KEY);
   const model = genAI.getGenerativeModel({ model: MODEL_NAME });
