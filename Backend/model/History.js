@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// History schema for storing search results
 const HistorySchema = new mongoose.Schema({
         title: {
           type: String,
