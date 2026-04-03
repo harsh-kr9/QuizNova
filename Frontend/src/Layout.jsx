@@ -33,5 +33,4 @@ function Layout() {
   );
 }
 
-// Main layout wrapper with header footer and outlet
 export default Layout;
