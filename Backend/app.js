@@ -22,8 +22,7 @@ const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler')
 
 app.use(cors({
-    // origin: 'http://localhost:5173',
-    origin: 'https://quiz-nova-nu.vercel.app',
+    origin: ['https://quiz-nova-nu.vercel.app', 'https://quiz-nova-neon.vercel.app'],
     credentials: true
 }));
 // Handle preflight requests for all routes
